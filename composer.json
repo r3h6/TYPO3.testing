@@ -6,7 +6,7 @@
         }
     },
     "require": {
-        "typo3/testing-framework": "^4.0",
+        "typo3/testing-framework": "^4.0 || ^6.0",
         "codeception/codeception": "^4.0",
         "codeception/module-webdriver": "^1.0",
         "codeception/module-db": "^1.0",

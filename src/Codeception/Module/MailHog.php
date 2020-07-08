@@ -69,8 +69,9 @@ class MailHog extends Module
             $html = '<pre>'.$html.'</pre>';
         }
 
+        $root = $this->_getConfig('test_root');
         $file = 'typo3temp/assets/'.uniqid('mail', false) . '.html';
-        file_put_contents('web/typo3temp/tests/acceptance/web/'.$file, $html);
+        file_put_contents($root . '/web/' . $file, $html);
 
         /** \Codeception\Module\WebDriver $wd */
         $wd = $this->getModule('WebDriver');

@@ -53,7 +53,7 @@ class Mail
     public function getHeader($header)
     {
         $header = ArrayUtility::getValueByPath($this->maiLData, 'Content/Headers/'.$header);
-        return array_map('imap_utf8', $header);
+        return array_map(new ImapDecoder(), $header);
     }
 
     /**

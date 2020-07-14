@@ -19,8 +19,8 @@ class FrontendEnvironment extends Extension
             'web/index.php' => 'web/index.php',
         ],
         'files_to_copy' => [
-            'build/fixtures/fileadmin' => 'web/fileadmin',
-            'build/fixtures/uploads' => 'web/uploads',
+            'build/fixtures/acceptance/fileadmin' => 'web/fileadmin',
+            'build/fixtures/acceptance/uploads' => 'web/uploads',
         ],
         'required_directories' => [
             'var',
@@ -29,7 +29,45 @@ class FrontendEnvironment extends Extension
             'web/typo3temp/assets',
             'web/typo3temp/var/transient',
             'web/uploads',
-        ]
+        ],
+        'additional_configuration' => [
+            'BE' => [
+                'debug' => true,
+            ],
+            'FE' => [
+                'debug' => true,
+                'lockIP' => 0,
+            ],
+            'SYS' => [
+                'trustedHostsPattern' => '.*',
+                'devIPmask' => '*',
+                'displayErrors' => 1,
+                // 'exceptionalErrors' => 22519, // E_ALL ^ E_DEPRECATED ^ E_NOTICE,
+                'sqlDebug' => 1,
+                'systemLog' => '',
+                'systemLogLevel' => 0,
+            ],
+            'GFX' => [
+                'processor' => 'ImageMagick',
+                'processor_path' => '/usr/bin/',
+                'processor_path_lzw' => '/usr/bin/',
+            ],
+            'MAIL' => [
+                'transport' => 'smtp',
+                'transport_smtp_server' => 'mail:1025'
+            ],
+            'DB' => [
+                'Connections' => [
+                    'Default' => [
+                        'dbname' => 'db',
+                        'host' => 'db',
+                        'password' => 'db',
+                        'port' => '3306',
+                        'user' => 'db',
+                    ],
+                ],
+            ],
+        ],
     ];
 
     protected static $events = array(
@@ -77,6 +115,17 @@ class FrontendEnvironment extends Extension
         foreach ($dirs as $dir) {
             $dir = $root . '/' . trim($dir, '/');
             $filesystem->mkdir($dir);
+        }
+
+        $additionalConfigurationFile = $root . '/web/typo3conf/AdditionalConfiguration.php';
+        if (!$filesystem->exists($additionalConfigurationFile)) {
+            // $db = $this->getModule('DB');
+            $additionalConfiguration = $this->config['additional_configuration'];
+            $content = "<?php\n"
+                . "\$GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(\$GLOBALS['TYPO3_CONF_VARS'], "
+                . var_export($additionalConfiguration, true)
+                . ");";
+            $filesystem->dumpFile($additionalConfigurationFile, $content);
         }
     }
 }

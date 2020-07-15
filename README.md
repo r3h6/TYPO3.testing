@@ -4,9 +4,9 @@ Helper for frontend acceptance testing in TYPO3.
 
 ## Usage
 
-`docker-compose -f build/docker/docker-compose.yaml run acceptance-test`
+`docker-compose -f build/docker/docker-compose.yml run acceptance-test`
 
-docker-compose.yaml:
+docker-compose.yml:
 ```yaml
 version: '3.6'
 services:
@@ -177,4 +177,12 @@ paths:
 settings:
     shuffle: false
     lint: true
+```
+
+AdditionalConfiguration.php
+```php
+if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isTesting()) {
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['lockIP'] = 0;
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_smtp_server'] = 'mail:1025';
+}
 ```

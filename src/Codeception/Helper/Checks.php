@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\Codeception\Helper;
 
 trait Checks
@@ -7,17 +9,14 @@ trait Checks
     /**
      * @Then I should see :text
      * @Then I see :text
-     * @param string $text
      */
-    public function iSee(string $text)
+    public function iSee(string $text): void
     {
         $this->see($text);
     }
 
     /**
      * @Then I should see :text in :element element
-     * @param string $text
-     * @param string $selector
      */
     public function iSeeInElement(string $text, string $selector): void
     {
@@ -26,92 +25,80 @@ trait Checks
 
     /**
      * @Then I should be on :url
-     * @param string $url
      */
-    public function iSeeInCurrentUrl(string $url)
+    public function iSeeInCurrentUrl(string $url): void
     {
         $this->seeInCurrentUrl($url);
     }
 
     /**
      * @Then I should see an :selector element
-     * @param string $selector
      */
-    public function iSeeElement(string $selector)
+    public function iSeeElement(string $selector): void
     {
         $this->seeElement($selector);
     }
 
     /**
      * @Then I should not see :text
-     * @param string $text
      */
-    public function iDontSee(string $text)
+    public function iDontSee(string $text): void
     {
         $this->dontSee($text);
     }
 
     /**
      * @Then I should not see an :selector element
-     * @param string $selector
      */
-    public function iDontSeeElement(string $selector)
+    public function iDontSeeElement(string $selector): void
     {
         $this->dontSeeElement($selector);
     }
 
     /**
      * @Then I should see a link with the text :text
-     * @param string $text
      */
-    public function iSeeLink(string $text)
+    public function iSeeLink(string $text): void
     {
         $this->seeLink($text);
     }
 
     /**
      * @Then I should see :text in page source
-     * @param string $text
      */
-    public function iSeeInPageSource(string $text)
+    public function iSeeInPageSource(string $text): void
     {
         $this->seeInPageSource($text);
     }
 
     /**
      * @Then I should see :value in :field field
-     * @param string $value
-     * @param string $field
      */
-    public function iSeeInField(string $value, string $field)
+    public function iSeeInField(string $value, string $field): void
     {
         $this->seeInField($field, $value);
     }
 
     /**
      * @Then I should see checkbox :selector is checked
-     * @param string $selector
      */
-    public function iSeeCheckboxIsChecked(string $selector)
+    public function iSeeCheckboxIsChecked(string $selector): void
     {
         $this->seeCheckboxIsChecked($selector);
     }
 
     /**
      * @Then I should see checkbox :selector is unchecked
-     * @param string $selector
      */
-    public function iDontSeeCheckboxIsChecked(string $selector)
+    public function iDontSeeCheckboxIsChecked(string $selector): void
     {
         $this->dontSeeCheckboxIsChecked($selector);
     }
 
     /**
      * @Then I should see :expected :selector elements
-     * @param int $expected
-     * @param string $selector
      */
-    public function iSeeNumberOfElements(int $expected, string $selector)
+    public function iSeeNumberOfElements(int $expected, string $selector): void
     {
         $this->seeNumberOfElements($selector, $expected);
     }
@@ -126,8 +113,6 @@ trait Checks
 
     /**
      * @Then I should see at least :number :selector elements
-     * @param string $number
-     * @param string $selector
      */
     public function iShouldSeeMinNumberOfElements(string $number, string $selector): void
     {

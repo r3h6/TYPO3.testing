@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\MailHog;
 
 use GuzzleHttp\Client;
@@ -29,7 +31,7 @@ class MailHogClient
     }
 
 
-    public function search($kind, $query)
+    public function search(string $kind, string $query): array
     {
         $mails = [];
         $response = $this->client->get('/api/v2/search?' . http_build_query(['kind' => $kind, 'query' => $query]));

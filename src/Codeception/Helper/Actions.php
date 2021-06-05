@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\Codeception\Helper;
 
 use Facebook\WebDriver\WebDriverKeys;
@@ -8,7 +10,6 @@ trait Actions
 {
     /**
      * @When I click on :element
-     * @param string $element
      */
     public function iClickOn(string $element): void
     {
@@ -17,7 +18,6 @@ trait Actions
 
     /**
      * @When I press enter on :element
-     * @param string $element
      */
     public function iPressEnter(string $element): void
     {
@@ -26,8 +26,6 @@ trait Actions
 
     /**
      * @When I click on :element inside :selector
-     * @param string $element
-     * @param string $id
      */
     public function iClickOnInside(string $element, string $selector): void
     {
@@ -36,7 +34,6 @@ trait Actions
 
     /**
      * @When I execute JS :script
-     * @param string $script
      */
     public function iExecuteJS(string $script): void
     {
@@ -45,11 +42,9 @@ trait Actions
 
     /**
      * @When I move mouse over :select
-     * @param string $select
      */
     public function iMoveMouseOver(string $select): void
     {
         $this->moveMouseOver($select);
     }
-
 }

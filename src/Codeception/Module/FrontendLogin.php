@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\Codeception\Module;
 
 use Codeception\Module;
 
 class FrontendLogin extends Module
 {
-    public function loginAs($username)
+    public function loginAs(string $username): void
     {
-        /** \Codeception\Module\WebDriver $wd */
+        /** @var \Codeception\Module\WebDriver $wd */
         $wd = $this->getModule('WebDriver');
 
-        /** \Codeception\Module\Db $db */
+        /** @var  \Codeception\Module\Db $db */
         $db = $this->getModule('Db');
 
         $userUid = $db->grabColumnFromDatabase('fe_users', 'uid', ['username' => $username])[0] ?? null;

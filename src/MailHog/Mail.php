@@ -1,8 +1,8 @@
 <?php
 
-namespace R3H6\Typo3Testing\MailHog;
+declare(strict_types=1);
 
-use TYPO3\CMS\Core\Utility\ArrayUtility;
+namespace R3H6\Typo3Testing\MailHog;
 
 class Mail
 {
@@ -31,7 +31,6 @@ class Mail
      */
     protected $body;
 
-
     /**
      * Mail constructor.
      * @param array $mailData
@@ -40,50 +39,34 @@ class Mail
     {
         $this->maiLData = $mailData;
 
-        $this->body = utf8_encode(quoted_printable_decode(ArrayUtility::getValueByPath($this->maiLData, 'Content/Body')));
+        $this->body = utf8_encode(quoted_printable_decode($this->maiLData['Content']['Body']));
         $this->recipients = $this->getHeader('To');
         $this->subject = implode(', ', $this->getHeader('Subject'));
         $this->sender = implode(',', $this->getHeader('From'));
     }
 
-    /**
-     * @param string $header
-     * @return array
-     */
-    public function getHeader($header)
+    public function getHeader(string $header): array
     {
-        $header = ArrayUtility::getValueByPath($this->maiLData, 'Content/Headers/'.$header);
+        $header = $this->maiLData['Content']['Headers'][$header];
         return array_map(new ImapDecoder(), $header);
     }
 
-    /**
-     * @return string
-     */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getSubject()
+    public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @return array
-     */
-    public function getRecipients()
+    public function getRecipients(): array
     {
         return $this->recipients;
     }
 
-    /**
-     * @return string
-     */
-    public function getSender()
+    public function getSender(): string
     {
         return $this->sender;
     }

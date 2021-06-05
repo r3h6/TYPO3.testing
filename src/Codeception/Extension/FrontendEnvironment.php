@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\Codeception\Extension;
 
 use Codeception\Events;
@@ -9,6 +11,9 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class FrontendEnvironment extends Extension
 {
+    /**
+     * @var array
+     */
     protected $config = [
         'test_root' => 'web/typo3temp/var/tests/acceptance',
         'files_to_link' => [
@@ -70,12 +75,14 @@ class FrontendEnvironment extends Extension
         ],
     ];
 
-    protected static $events = array(
+    /**
+     * @var string[]
+     */
+    protected static $events = [
         Events::TEST_BEFORE => 'beforeTest',
-    );
+    ];
 
-
-    public function beforeTest(\Codeception\Event\TestEvent $event)
+    public function beforeTest(\Codeception\Event\TestEvent $event): void
     {
         // Setup test root
         $root = rtrim($this->config['test_root'], '/');

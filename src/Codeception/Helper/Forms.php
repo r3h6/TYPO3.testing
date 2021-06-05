@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace R3H6\Typo3Testing\Codeception\Helper;
 
 use Behat\Gherkin\Node\TableNode;
@@ -29,7 +31,6 @@ trait Forms
 
     /**
      * @Given I submit form :form
-     * @param string $form
      */
     public function iSubmitForm(string $form): void
     {
@@ -38,8 +39,6 @@ trait Forms
 
     /**
      * @Given I submit form :form with :values
-     * @param string $form
-     * @param array $values
      */
     public function iSubmitFormWithValues(string $form, array $values): void
     {
@@ -48,8 +47,6 @@ trait Forms
 
     /**
      * @When I select :value from :field
-     * @param string $value
-     * @param string $field
      */
     public function iSelectFrom(string $value, string $field): void
     {
@@ -58,7 +55,6 @@ trait Forms
 
     /**
      * @When I check option :option
-     * @param string $option
      */
     public function iCheckOption(string $option): void
     {
@@ -67,7 +63,6 @@ trait Forms
 
     /**
      * @When I uncheck option :option
-     * @param string $option
      */
     public function iUncheckOption(string $option): void
     {
@@ -76,8 +71,6 @@ trait Forms
 
     /**
      * @When I attach :field the :file
-     * @param string $field
-     * @param string $filename
      */
     public function iAttachFile(string $field, string $filename): void
     {

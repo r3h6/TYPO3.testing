@@ -1,15 +1,27 @@
 {
-    "name": "r3h6/typo3-testing",
-    "autoload": {
-        "psr-4": {
-            "R3H6\\Typo3Testing\\": "src/"
-        }
-    },
-    "require": {
-        "codeception/codeception": "^4.0",
-        "codeception/module-webdriver": "^1.0",
-        "codeception/module-db": "^1.0",
-        "symfony/filesystem": "^4.4 || ^5.0",
-        "guzzlehttp/guzzle": "^6.0"
-    }
+	"name": "r3h6/typo3-testing",
+	"autoload": {
+		"psr-4": {
+			"R3H6\\Typo3Testing\\": "src/"
+		}
+	},
+	"require": {
+		"codeception/codeception": "^4.0",
+		"codeception/module-webdriver": "^1.0",
+		"codeception/module-db": "^1.0",
+		"symfony/filesystem": "^4.4 || ^5.0",
+		"guzzlehttp/guzzle": "^6.0"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.0",
+		"phpstan/phpstan": "^0.12.88"
+	},
+	"scripts": {
+		"cs": [
+			"php-cs-fixer fix src"
+		],
+		"phpstan": [
+			"phpstan analyse"
+		]
+	}
 }

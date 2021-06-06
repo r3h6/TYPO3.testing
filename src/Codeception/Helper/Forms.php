@@ -30,7 +30,7 @@ trait Forms
     }
 
     /**
-     * @Given I submit form :form
+     * @When I submit the form :form
      */
     public function iSubmitForm(string $form): void
     {
@@ -38,7 +38,7 @@ trait Forms
     }
 
     /**
-     * @Given I submit form :form with :values
+     * @When I submit the form :form with :values
      */
     public function iSubmitFormWithValues(string $form, array $values): void
     {
@@ -70,10 +70,10 @@ trait Forms
     }
 
     /**
-     * @When I attach :field the :file
+     * @When I attach :file to :field
      */
-    public function iAttachFile(string $field, string $filename): void
+    public function iAttachFile(string $file, string $field): void
     {
-        $this->attachFile($field, $filename);
+        $this->attachFile($field, $file);
     }
 }

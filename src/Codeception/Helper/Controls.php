@@ -38,6 +38,7 @@ trait Controls
 
     /**
      * @Given I wait for :seconds seconds
+     * @Given I wait for :seconds second
      */
     public function iWaitForSeconds(int $seconds): void
     {
@@ -45,7 +46,7 @@ trait Controls
     }
 
     /**
-     * @Then I wait for invisible :selector in :seconds
+     * @Given I wait for invisible :selector in :seconds
      */
     public function iWaitForElementNotVisible(string $selector, int $seconds): void
     {

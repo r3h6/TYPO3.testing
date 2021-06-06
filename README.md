@@ -2,6 +2,31 @@
 
 Helper for frontend acceptance testing in TYPO3.
 
+## Build
+```sh
+docker build -t r3h6/codecept .
+docker run --rm -it --user $(id -u):$(id -g) -v $PWD:/project r3h6/codecept
+```
+
+docker-compose.yml:
+```yaml
+version: '3.6'
+services:
+    codecept:
+        image: r3h6/codecept
+
+        depends_on:
+            - chrome
+        volumes:
+            - .:/project
+    chrome:
+        image: selenium/standalone-chrome
+
+        ports:
+            - '5900'
+            - '4444'
+```
+
 ## Usage
 
 `docker-compose -f build/docker/docker-compose.yml run acceptance-test`

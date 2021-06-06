@@ -10,7 +10,8 @@ use Codeception\Util\ActionSequence;
 trait Mails
 {
     /**
-     * @Given I cleared my inbox
+     * @Given My inbox is empty
+     * @When I clear my inbox
      */
     public function iClearInbox(): void
     {
@@ -18,7 +19,7 @@ trait Mails
     }
 
     /**
-     * @Then I should see in my inbox the mail :subject for :recipient from :sender
+     * @Then I see in my inbox the mail :subject for :recipient from :sender
      */
     public function iSeeMailInInbox($subject, $recipient, $sender): void
     {
@@ -26,7 +27,7 @@ trait Mails
     }
 
     /**
-     * @Then I open the mail :subject
+     * @When I open the mail :subject
      */
     public function iOpenMail($subject): void
     {

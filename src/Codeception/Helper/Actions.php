@@ -47,4 +47,12 @@ trait Actions
     {
         $this->moveMouseOver($select);
     }
+
+    /**
+     * @When I accept the open popup
+     */
+    public function iAcceptPopup(): void
+    {
+        $this->acceptPopup();
+    }
 }

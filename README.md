@@ -211,3 +211,54 @@ if (\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext()->isTesting()
     $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_smtp_server'] = 'mail:1025';
 }
 ```
+
+```
+FROM php:7.4-cli-alpine
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN apk add --no-cache \
+    git \
+    libressl-dev \
+    graphicsmagick \
+    && chmod +x /usr/local/bin/install-php-extensions \
+    && sync \
+    && install-php-extensions \
+        bcmath \
+        imagick \
+        mysqli \
+        pdo_mysql \
+        pdo_pgsql \
+        soap \
+        sockets \
+        zip \
+    && rm -rf /var/cache/apk/*
+
+# Configure php
+RUN echo "date.timezone = UTC" >> /usr/local/etc/php/php.ini
+
+# Install composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --filename=composer \
+        --install-dir=/usr/local/bin
+
+# Add source-code
+COPY . /repo
+
+# Prepare application
+WORKDIR /repo
+
+RUN composer require \
+codeception/codeception \
+codeception/module-webdriver \
+codeception/module-db \
+codeception/visualception
+
+ENV PATH /repo/vendor/bin:${PATH}
+ENTRYPOINT ["codecept"]
+
+# Prepare host-volume working directory
+RUN mkdir /project
+WORKDIR /project
+```
